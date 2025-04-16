@@ -1,0 +1,54 @@
+<%- include('partials/navbar.ejs') %>
+<%- include('partials/header.ejs') %>
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Pedidos feitos</h1>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-warning">
+                    <tr>
+                        <th>Icon</th>
+                        <th>ID Pedido:</th>
+                        <th>Cliente:</th>
+                        <th>Valor:</th>
+                        <th>Quantidade:</th>
+                        <th>Produto: </th>
+                        <th>Status: </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Chamando o array de objetos -->
+                    <% pedidos.forEach(pedido => { %>
+                        <tr>
+                            <%
+                                if(pedido.status == "Em Sepração") { %>
+                                    <td style="text-align: center;"><img src="/imgs/produto1.jpg" width="50px"></td>
+                                <% } else if (pedido.status == "Em Trânsito") { %>
+                                    <td style="text-align: center;"><img src="/imgs/produto2.jpg" width="50px"></td>
+                                <% } else if (pedido.status == "Entregue") { %>
+                                    <td style="text-align: center;"><img src="/imgs/produto3.jpg" width="50px"></td>
+                                <% } %>
+                            <td><%= pedido.numero %></td>
+                            <td><%= pedido.cliente %></td>
+                            <td><%= pedido.preco.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'}) %></td>
+                            <td><%= pedido.quantidade %></td>
+                            <td><%= pedido.produto %></td>
+                            <td><%= pedido.status %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<%- include('partials/footer.ejs') %>
