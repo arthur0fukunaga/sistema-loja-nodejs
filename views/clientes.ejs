@@ -1,42 +1,63 @@
-<%- include('partials/navbar.ejs') %>
-<%- include('partials/header.ejs') %>
-
-
 <div class="container">
+    <div class="card mb-4">
+        <div class="card-header bg-warning">
+            <h1>Cadastro de Cliente</h1>
+        </div>
+        <div class="card-body">
+            <form action="/clientes/new" method="POST" class="row g-3">
+                <div class="col-md-4">
+                    <input name="nome" class="form-control" placeholder="Nome" required>
+                </div>
+                <div class="col-md-3">
+                    <input name="cpf" class="form-control" placeholder="CPF" required>
+                </div>
+                <div class="col-md-3">
+                    <input name="telefone" class="form-control" placeholder="Telefone">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <input name="endereco" class="form-control" placeholder="Endereço" required>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-warning">
             <h1>Clientes Cadastrados</h1>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-hover">
-                <thead class="table-warning">
+                <thead class="table-light">
                     <tr>
                         <th>Icon</th>
-                        <th>Nome:</th>
-                        <th>CPF:</th>
-                        <th>Telefone:</th>
-                        <th>Endereço: </th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Chamando o array de objetos -->
-                <% clientes.forEach(cliente => { %>
-                    <tr>
-                        <td style="text-align: center;"><img src="/imgs/perfil.png" width="45px"></td>
-                        <td><%= cliente.nome %></td>
-                        <td><%= cliente.cpf %></td>
-                        <td><%= cliente.telefone %></td>
-                        <td><%= cliente.endereco %></td>
-                    </tr>
-                <% }) %>
+                    <% clientes.forEach(cliente => { %>
+                        <tr>
+                            <td style="text-align: center;">
+                                <img src="/imgs/perfil.png" width="45px">
+                            </td>
+                            <td><%= cliente.nome %></td>
+                            <td><%= cliente.cpf %></td>
+                            <td><%= cliente.telefone %></td>
+                            <td><%= cliente.endereco %></td>
+                            <td>
+                                <a href="/clientes/edit/<%= cliente.id %>" class="btn btn-sm btn-primary">Editar</a>
+                                <a href="/clientes/delete/<%= cliente.id %>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?');">Excluir</a>
+                            </td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
-
-
-
-<%- include('partials/footer.ejs') %>

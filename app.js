@@ -1,8 +1,12 @@
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import ClienteController from './controllers/ClienteController.js';  // note o .js
+
 const app = express();
 const PORT = 3000;
 
-const clientes = [
+// Dados simulados (index, produtos, pedidos)
+const clientesFake = [
   { nome: "João", cpf: "123.456.789-00", telefone: "(28) 2665-5469", endereco: "Rua A, 123" },
   { nome: "Maria", cpf: "987.654.321-00", telefone: "(82) 2586-7317", endereco: "Av. B, 456" },
   { nome: "Pedro", cpf: "321.654.987-00", telefone: "(75) 3946-7709", endereco: "Rua C, 789" },
@@ -11,7 +15,7 @@ const clientes = [
 ];
 
 const produtos = [
-  { nome: "Argola Pérola em Prata 925 com Banho de Our", preco: 890.90, categoria: "Argola" },
+  { nome: "Argola Pérola em Prata 925 com Banho de Ouro", preco: 890.90, categoria: "Argola" },
   { nome: "Corrente Malha Cartier em Ouro Amarelo 18k - 45cm", preco: 1440.00, categoria: "Corrente" },
   { nome: "Pulseira com Diamantes em Ouro Amarelo 18K - 17 cm", preco: 47000.00, categoria: "Pulseira" },
   { nome: "Brinco com Prasiolita e Safira em Prata 925", preco: 2680.90, categoria: "Brinco" },
@@ -28,15 +32,13 @@ const pedidos = [
 
 // Configurações
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static('public'));
 
-// Rotas
+// Rotas principais (fixas)
 app.get('/', (req, res) => {
   res.render('index');
-});
-
-app.get('/clientes', (req, res) => {
-  res.render('clientes', { clientes });
 });
 
 app.get('/produtos', (req, res) => {
@@ -46,6 +48,14 @@ app.get('/produtos', (req, res) => {
 app.get('/pedidos', (req, res) => {
   res.render('pedidos', { pedidos });
 });
+
+// Rota antiga com dados mockados de clientes (caso queira manter temporariamente)
+// app.get('/clientes', (req, res) => {
+//   res.render('clientes', { clientes: clientesFake });
+// });
+
+// Rota real do CRUD
+app.use(ClienteController);
 
 // Iniciar servidor
 app.listen(PORT, () => {

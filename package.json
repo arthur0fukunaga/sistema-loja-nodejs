@@ -2,6 +2,7 @@
   "name": "sistemaloja",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
@@ -10,12 +11,22 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthur0fukunaga/Sistema_NodeJS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arthur0fukunaga/Sistema_NodeJS/issues"
+  },
+  "homepage": "https://github.com/arthur0fukunaga/Sistema_NodeJS#readme",
+  "description": ""
 }
